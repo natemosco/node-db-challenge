@@ -70,11 +70,11 @@ function findTasks(Project_ID) {
   return db("Tasks")
     .select(
       "Tasks.id",
-      "Tasks.task_description",
-      "Tasks.notes",
-      "Tasks.completed",
-      "p.proj_name"
+      "Tasks.Description",
+      "Tasks.Notes",
+      "Tasks.Completed",
+      "Projects.Name"
     )
-    .join("Projects", "Projects.id", "=", "Tasks.project_id")
-    .where("Tasks.project_id", "=", project_id);
+    .join("Projects", "Projects.id", "=", "Tasks.id")
+    .where("Tasks.project_id", "=", Project_ID);
 }
