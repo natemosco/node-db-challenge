@@ -19,6 +19,7 @@ exports.up = function(knex) {
     })
     .createTable("Project_Resources", table => {
       table.primary(["Resource_ID", "Project_ID"]);
+      table.increments();
       table
         .integer("Resource_ID")
         .unsigned()
