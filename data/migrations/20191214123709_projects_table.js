@@ -24,14 +24,38 @@ exports.up = function(knex) {
         .unsigned()
         .notNullable()
         .references("id")
-        .inTable("Resources");
+        .inTable("Resources")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
       table
         .integer("Project_Resources")
         .unsigned()
         .notNullable()
         .references("id")
-        .inTable("Projects");
+        .inTable("Projects")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+    })
+    .createTable("Tasks", table => {
+      table.increments();
+      table.string("Description", 1200).notNullable();
+      table.string("Notes", 1200);
+      table.boolean("Completed").defaultTo(false);
+      table
+        .integer("Project_ID")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("Projects")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
     });
 };
 
-exports.down = function(knex) {};
+exports.down = function(knex) {
+  return knex.schema
+    .dropTableIfExists("Tasks")
+    .dropTableIfExists("Project_Resources")
+    .dropTableIfExists("Resources")
+    .dropTableIfExists("Projects");
+};
