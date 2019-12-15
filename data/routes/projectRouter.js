@@ -99,7 +99,7 @@ router.post("/:id/tasks", (req, res) => {
     .then(project => {
       if (project) {
         PM.addTask(taskBody).then(addedTask => {
-          //console.log(addedTask, 'response from Post /:id/tasks');
+          console.log(addedTask, "response from Post /:id/tasks");
           res.status(200).json(addedTask);
         });
       } else {

@@ -38,7 +38,13 @@ function findProjectResources(Project_ID) {
       "Resources.Description",
       "Projects.Name"
     )
-    .join("Projects", "Project.id", "=", "Resources.Project_ID")
+    .rightJoin(
+      "Project_Resources",
+      "Resources.id",
+      "=",
+      "Project_Resources.Project_ID"
+    )
+    .leftJoin("Projects", "Project.id", "=", "Project_Resources.Project_ID")
     .where("Resources.Project_ID", "=", Project_ID);
 }
 
@@ -75,6 +81,6 @@ function findTasks(Project_ID) {
       "Tasks.Completed",
       "Projects.Name"
     )
-    .join("Projects", "Projects.id", "=", "Tasks.id")
+    .leftJoin("Projects", "Projects.id", "=", "Tasks.id")
     .where("Tasks.project_id", "=", Project_ID);
 }
