@@ -55,11 +55,9 @@ router.get("/resources", (req, res) => {
     })
     .catch(error => {
       console.log(error, "Error from get /resources");
-      res
-        .status(500)
-        .json({
-          errorMessage: "internal error fetching list of all resources"
-        });
+      res.status(500).json({
+        errorMessage: "internal error fetching list of all resources"
+      });
     });
 });
 router.get("/:id/resources", (req, res) => {
@@ -71,12 +69,10 @@ router.get("/:id/resources", (req, res) => {
     })
     .catch(error => {
       console.log(error, "Error from get /:id/resources");
-      res
-        .status(500)
-        .json({
-          errorMessage:
-            "internal error fetching resources corresponding to specified project"
-        });
+      res.status(500).json({
+        errorMessage:
+          "internal error fetching resources corresponding to specified project"
+      });
     });
 });
 
@@ -88,7 +84,7 @@ router.post("/", (req, res) => {
       res.status(201).json(addedProject);
     })
     .catch(error => {
-      console.log(error, "Error from get /");
+      console.log(error, "Error from Post /");
       res
         .status(500)
         .json({ errorMessage: "internal error Posting new Project" });
@@ -98,6 +94,7 @@ router.post("/", (req, res) => {
 router.post("/:id/tasks", (req, res) => {
   const taskBody = req.body;
   const id = req.params.id;
+  taskBody.Project_ID = id;
   PM.findProjectByID(id)
     .then(project => {
       if (project) {
@@ -106,12 +103,10 @@ router.post("/:id/tasks", (req, res) => {
           res.status(200).json(addedTask);
         });
       } else {
-        res
-          .status(404)
-          .json({
-            errorMessage:
-              "Could not find project by this id so task was not able to be added"
-          });
+        res.status(404).json({
+          errorMessage:
+            "Could not find project by this id so task was not able to be added"
+        });
       }
     })
     .catch(error => {
@@ -136,3 +131,5 @@ router.post("/resources", (req, res) => {
         .json({ errorMessage: "internal error posting new Resource" });
     });
 });
+
+module.exports = router;

@@ -7,6 +7,6 @@ const server = express();
 
 const globalMiddleware = [helmet(), express.json()];
 
-server.use("./projects", globalMiddleware, Router);
+server.use("/projects", globalMiddleware, Router);
 
 module.exports = server;

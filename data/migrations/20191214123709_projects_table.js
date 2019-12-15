@@ -19,7 +19,7 @@ exports.up = function(knex) {
     })
     .createTable("Project_Resources", table => {
       table.primary(["Resource_ID", "Project_ID"]);
-      table.increments();
+      //! table.increments();  DONT Use this where having two keys because table.increments() SETS the PRIMARY KEY
       table
         .integer("Resource_ID")
         .unsigned()
@@ -29,7 +29,7 @@ exports.up = function(knex) {
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       table
-        .integer("Project_Resources")
+        .integer("Project_ID")
         .unsigned()
         .notNullable()
         .references("id")
